@@ -1,12 +1,9 @@
-﻿Imports System
-Imports System.Data
-Imports System.Collections
+﻿Imports DevExpress.XtraEditors.Controls
 Imports DevExpress.XtraGrid
-Imports System.Windows.Forms
 Imports DevExpress.XtraGrid.Columns
-Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraGrid.Views.Base
-Imports DevExpress.XtraEditors.Controls
+Imports DevExpress.XtraGrid.Views.Grid
+Imports System
 
 Namespace WindowsApplication1
     Public Class E1714
@@ -17,14 +14,15 @@ Namespace WindowsApplication1
             dt.Columns.Add("Price", GetType(Single))
             dt.Columns.Add("Quantity", GetType(Single))
 
-            dt.Rows.Add(New Object() { "Beverages", "Chai", 1.6, 319 })
-            dt.Rows.Add(New Object() { "Beverages", "Chai", 6295.5, 399 })
-            dt.Rows.Add(New Object() { "Beverages", "Ipoh Coffee", 10034.9, 228 })
-            dt.Rows.Add(New Object() { "Confections", "Chocolade", 1282.1, 130 })
-            dt.Rows.Add(New Object() { "Confections", "Chocolade", 86.7, 8 })
-            dt.Rows.Add(New Object() { "Confections", "Scottish Longbreads", 3909.0, 380 })
+            dt.Rows.Add(New Object() {"Beverages", "Chai", 1.6, 319})
+            dt.Rows.Add(New Object() {"Beverages", "Chai", 6295.5, 399})
+            dt.Rows.Add(New Object() {"Beverages", "Ipoh Coffee", 10034.9, 228})
+            dt.Rows.Add(New Object() {"Confections", "Chocolade", 1282.1, 130})
+            dt.Rows.Add(New Object() {"Confections", "Chocolade", 86.7, 8})
+            dt.Rows.Add(New Object() {"Confections", "Scottish Longbreads", 3909.0, 380})
             Return dt
         End Function
+
         Public Shared Sub Init(ByVal form As Form)
             Dim grid As New GridControl()
             grid.Dock = DockStyle.Fill
@@ -37,18 +35,20 @@ Namespace WindowsApplication1
                 column.OptionsFilter.FilterPopupMode = FilterPopupMode.CheckedList
             Next column
             Dim handler As FilterPopupCheckedListBoxEventHandler = Sub(sender As Object, e As FilterPopupCheckedListBoxEventArgs)
-                Dim list As New ArrayList(e.CheckedComboBox.Items)
-                list.Sort(New CheckedListBoxItemComparer(SortDirection.Descending))
-                e.CheckedComboBox.Items.Clear()
-                e.CheckedComboBox.Items.AddRange(list.ToArray())
-            End Sub
-            columnView.ShowFilterPopupCheckedListBox += handler
+                                                                       Dim list As New ArrayList(e.CheckedComboBox.Items)
+                                                                       list.Sort(New CheckedListBoxItemComparer(SortDirection.Descending))
+                                                                       e.CheckedComboBox.Items.Clear()
+                                                                       e.CheckedComboBox.Items.AddRange(list.ToArray())
+                                                                   End Sub
+            AddHandler columnView.ShowFilterPopupCheckedListBox, handler
         End Sub
     End Class
+
     Public Class CheckedListBoxItemComparer
         Implements IComparer
 
         Private directionCore As SortDirection = SortDirection.Ascending
+
         Public Sub New()
             MyBase.New()
         End Sub
