@@ -43,7 +43,7 @@ Namespace WindowsApplication1
                 e.CheckedComboBox.Items.Clear()
                 e.CheckedComboBox.Items.AddRange(list.ToArray())
             End Sub
-            columnView.ShowFilterPopupCheckedListBox += handler
+            AddHandler columnView.ShowFilterPopupCheckedListBox, handler
         End Sub
     End Class
 
